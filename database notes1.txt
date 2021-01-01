@@ -1,0 +1,1010 @@
+RAM :  (temporary memory)
+	 int  a=10;
+
+file concepts: (notepad,.....) file system format(permanent storage but not security)
+==========
+	format:   paragraph format.
+
+tabular foramt:(file system format)
+========================
+	excel , ms-access. 
+
+ms-sql server, Oracle , MY-Sql,....
+========================
+
+
+cloud services:
+==========
+
+
+
+
+database :
+	backend
+	collection of inter-related data
+	purpose: to store data permanently.
+
+query:
+=====
+	to create database:
+	==============
+
+syntax format:
+	create database databasename;
+
+create,database--> keyword (reserve word)
+
+databasename --> user-defined name
+		rules:
+		1. must start with alphabet (A-Z or a-z)
+		2. do not start with numbers
+		3. do not give special character except _	
+	
+ex:
+	create database Student;
+
+how to select database?
+================
+	syntax:
+		use databasename;
+		
+	EX:		 
+		use Student;
+
+how to create table?
+===============
+	syntax:
+ create table tablename(fieldname1 datatype, fieldname2 datatype,..............)
+
+create,table --> keyword
+tablename   --> user define 
+fieldname or variable or columnname --> user define
+datatype     --> varchar(size), int , float, datetime,currency,...............
+	
+	ex:
+
+create table login(userid varchar(29), password varchar(29));
+
+how to insert values to table?
+=====================
+
+	syntax:1
+	======
+	insert into tablename values(value1,value2,value3,.....)
+
+	insert,into,values --> keyword or reserve word
+	tablename     --> already user defined
+	value1,value2,....---> varchar(string) type  -->'name '
+			date                       --> 'date'
+			int,float                ---> 1234    12.234
+
+	ex:
+	insert into login values('senthil','passowrd@123');
+
+	syntax:2
+	======
+insert into tablename (columnname1,columnname4,columnname 2) values (value1,value2,value3)
+
+	ex:
+
+	insert into login (username) values ('krishna')	
+
+	syntax :3
+	======
+insert into tablename values (value1,value2),(val1,val2),(val1,val2),...............
+
+	ex:
+	
+	insert into login values ('abc','password1'),('def','password2'),('ghi','password3')
+
+	syntax:4
+
+	insert into login (username) values ('user1'),('user2'),....
+
+how to view the content of table?
+=======================
+	syntax:1
+	select * from tablename;
+
+
+	select, from --> keyword
+	*                 --> all columns
+	tablename  --> already user created
+
+
+	ex:
+	select * from login;
+
+	
+	syntax:2
+
+	select column2,columnname1 from tablename
+6-11-20
+how to add extra column in already created table?
+====================================
+
+syntax:
+	alter table tablename add columnname or fieldname datatype.
+
+alter,table,add --> keyword
+columname    --> filedname or  var 
+datatype       --> varchar,int,float,....
+ex:
+	alter table login add passwordhint varchar(25);
+
+
+how to drop unwanted column?
+=======================
+syntax:
+	alter table tablename drop column columnname;
+
+
+alter,table, drop, column ---> keyword  or reserve word
+columnname                    --> fieldname 
+
+ex:
+	alter table login drop COLUMN passhint;
+
+how to change datatype in already created table?
+====================================
+
+syntax:
+alter table tablename modify columnname or fieldname datatype
+
+keywords:
+	alter,table modify
+
+ex:1
+alter table login MODIFY age int 
+ex:2
+alter table login MODIFY age int not null
+
+automattically zero fiexed instead of null.
+
+how to apply primary key in already created table?
+====================================
+
+primary key: unique (duplicate not allow)
+	 : null not accept
+
+syntax:
+	alter table tablename modify columnname datatype primary key
+
+ex:	
+
+	alter table login modify userid varchar(33) primary key
+
+  
+
+
+
+
+
+
+how to delete rows in a table?
+======================
+
+syntax:
+	delete from tablename where condition
+
+example:
+
+	DELETE from login WHERE username='abc'
+
+	delete from login --> delete entrie rows
+
+9-11-20
+======
+	update query:
+	==========
+	use: to change a particular value.
+
+	syntax:
+	=====
+update tablename set fieldname or col name=value where condition
+
+note:
+update , set  , where  ==> keyword
+
+	ex:1
+update login set passowrd='new password' where username='senthil'
+	ex:2
+update login set passowrd='new password' where username='senthil' or username='krishna'
+
+10-11-20
+=======
+create table sdetails(rno int,sname varchar(30),dob datetime,m1 int,m2 int,m3 int,tot int, avg float,res varchar(4))
+
+
+
+INSERT into testdate values('1/1/10')	
+
+UPDATE sdetails set dob='11/4/6'
+
+UPDATE sdetails set m1=87,m2=89,m3=98 WHERE rno=1001
+
+UPDATE sdetails set tot=m1+m2+m3
+
+UPDATE sdetails set avg=tot/3.0
+
+update login set passid='new password' where passid != '12345'
+
+pass:
+====
+update sdetails set res='pass' where m1>49 and m2>49 and m3>49
+
+fail:
+===
+update sdetails set res='fail' where m1<=49 or m2<=49 or m3<=49
+
+
+
+truncate:(only for table)
+======
+	remove all rows
+
+syntax:
+	TRUNCATE TABLE tablename
+ex:
+	truncate table login
+
+drop table:
+====
+	syntax:
+	drop table tablename;
+
+	ex:
+	drop table sdetails
+drop database:
+==========
+	ex:
+	drop DATABASE student	
+	
+19-11-2020
+========
+	constraints:
+		1) not null --> value must
+		2) unique  --> duplicate not allow
+		3) primary key --> (1+2)
+		4) foreign key --> refer data from other table
+		5) check          --> conditions (not support mysql)
+		6) default        --> default value insert automattically
+
+foreign key:
+
+=========table  1  emp ===================
+  create table emp (empno int PRIMARY key, ename varchar(20),sal int)
+
+insert into emp values(1001,'raja.k',25600),(1002,'arunkumar',75600),(1003,'balakumar',2600),(1004,'krishan',45600),(1008,'senthil',55600)
+
+=========table 2 person============
+
+create table person(pno int PRIMARY key, pname varchar(22), FOREIGN key(pno) REFERENCES emp(empno))
+
+
+
+
+syntax:
+
+create table tablename(filed1 datatype,field2 datatype, foreign key(field1) references sourcetablename(source column name with primary key)
+
+
+
+22-11-20
+=======
+ 	check constraint
+
+
+	 we will see tommorrow
+	(mysql not support check constraint)
+
+========================
+default:
+
+create table empdata(eno int,ename varchar(29),city varchar(20) DEFAULT 'karur')
+
+insert into empdata(eno,ename) values (1001,'rajesh')
+
+
+create table testdt(sno int, todaydatetime datetime DEFAULT now())
+
+insert into testdt (sno) VALUES (1002)
+
+23-11-20
+======
+	select query:
+	=========
+
+	select * from tablename;
+
+	select coluname1,columnname3,columnname2 from tablename;
+	
+	select * from tablename where condition
+
+			
+	condition:
+		columnname>value
+		age>18
+
+	SELECT * FROM employee where age>=18 and age<=50
+
+	select * from employee where age<18 or age>40
+
+	SELECT * FROM `employee` WHERE not (age<0)
+	
+	   select * from employee where  not  city='covai'
+
+	< 
+	>
+	<=
+	>=
+	!=  or <>
+	=
+	select * from employee where eno != 106
+	select * from employee where eno = 106
+
+
+	select * from employee where ename LIKE 'a%'
+
+	select * from employee where ename LIKE '%n'
+
+	select * from employee where ename LIKE '%th%'
+
+find table datatypes , key(constraint) ,default:
+
+	describe tablename;
+
+show all the tables in a database:
+
+	show tables;
+
+24-11-2020
+========
+       select DISTINCT(eno) from employee;
+      (duplicate not allow)
+
+      SELECT count(DISTINCT(city)) from employee
+
+      SELECT count(DISTINCT(city)) as total_city from employee
+ 
+      note: as name (column name display)
+
+      select * from employee where age BETWEEN 20 and 55
+
+     select * from employee where city in ('covai','madhurai')
+	or
+     select * from employee where city='covai' or city='madhurai'
+
+     select * from employee where  not  city='covai'
+
+     select * from employee order by eno asc   // no need asc
+
+     select * from employee order by ename
+
+     select * from employee order by ename desc  // must desc (descending)
+
+27-11-20
+======
+       select * from employee order by city, ename desc
+       select * from employee order by city, ename
+       select * from employee order by city desc, ename desc
+
+  group by:
+ ========
+	select * from tablename
+	where .....
+	group by  fieldname or column
+	having condition
+	order by   fieldname or column
+
+ex:1
+	1) select city from employee group by city
+
+output:
+	-->city print only one time.
+	--> ascending order
+
+
+              2) select city,count(city)from employee group by city
+	select city,count(city) as 'total_no' from employee group by city	
+	select city,count(city) as 'total_no' from employee GROUP by city 	order by city desc	
+
+             3)  select city,count(city) from employee group by city order by count(city) asc
+
+ex:
+	chennai   360
+	cuddlure  400
+	vellur       200
+	...
+       	having  query
+	=========
+	having: condition
+	we can add having in between group by and order by
+
+   4) select city,count(city) from employee group by city having count(city)>=3 order by count(city) asc
+
+30-11-2020
+========
+	backup table:(we will see tomorrow)
+
+	syntax:
+
+	select * into oldname from newtablename; // pls check version
+
+
+one table values to another table:
+=======================
+basic model:
+	insert into employee2 select * from employee1	
+
+advance model:
+===========
+	insert into employee2(eno,ename,age) select eno,ename,age from employee  where age>=50
+
+	insert into employee2(eno,ename,age) select eno,city,age from employee  where age<50
+
+
+using case in select:
+==============
+
+syntax:
+	case 
+	when columname>value  then  '*******'
+	when columname>value  then  '*******'
+	when columname>value  then  '*******'
+	when columname>value  then  '*******'
+	else
+	.........
+	end
+
+using case in select:
+
+	select eno,ename,age,
+	case
+	when age>60 then 'very old'
+	when age>40 then 'old'
+	when age>17 then 'young'
+	else 'below 18'	
+	end as description
+	from employee2
+	
+	or
+
+	alter table employee add description varchar(25)
+	update employee set description='very old' where age>60
+	update employee set description=' old' where age>40
+	update employee set description='young' where age>17
+	update employee set description='below 18' where age<18
+
+1-12-2020
+========
+
+select top 4 * from employee  ( not work in mysql - only work mssql,oracel,msacces)
+
+mysql:
+====
+select * from employee LIMIT 4 ---> top 4 rows display
+
+
+2-11-2020
+========
+	join --> combine 2 table values.
+
+--> inner join                  ------> common values
+-->left join                     ------> left side table values
+-->right join                  ----->   right side table values
+-->full outer join          ------>  full details shows both tables
+
+
+syntax:
+	select column1,column2,... from table1
+                  inner join table2
+	on table1.columnname = table2.columname
+
+ex:
+
+select e1.eno,e1.ename,e1.age,e2.ename ,e2.age from employee1 e1 
+inner join employee2 e2
+on e1.eno = e2.eno;
+
+select e1.eno,e1.ename,e1.age,e2.ename ,e2.age from employee1 e1 
+left join employee2 e2
+on e1.eno = e2.eno;
+
+full outer join: (does not support mysql--> instead of using uniton all)
+===========================
+select e1.eno,e1.ename,e1.age,e2.ename ,e2.age from employee1 e1 
+full outer join employee2 e2
+on e1.eno = e2.eno;
+
+mysql:
+=====
+select * from employee1 UNION select * from employee2;
+
+self join:
+=======
+select e1.eno,e1.ename,e1.age,e2.eno,e2.ename ,e2.age from employee2 e2,employee1 e1
+
+4-12-2020
+=======
+	stored procedure:
+	=============
+
+	def: reuse long qry. (same as function)
+
+	syntax:
+	delimiter $$   // space is must inbetween delimiter and $$
+	create procedure procedurename(parameter1,parameter2,..)
+	begin
+	sql_select_qry;
+	sql_select_qry;
+	end$$
+
+	to run stored procedure:
+	=================
+
+	call procedurename();
+	call procedurename(value1,value2,....);
+
+	ex:
+	delimiter $$
+	create procedrue myrecords()
+	begin 
+	select * from mydetails;
+	end$$ 
+
+	call myrecords();
+
+
+	delete procedure:
+	
+	drop procedure procedurename;
+	
+	ex:
+	drop procedure pro1
+
+
+	using parameter passing in procedrue:
+	===========================
+	delimiter $$
+	create procedure procedurename(in variablename datatype)
+	begin
+	select * from tablename  where  columnname=variablename;
+	end$$
+
+
+	call procedurename(value);
+
+	
+	ex:
+	DELIMITER $$
+	create procedure proarg(in eid int)
+	BEGIN
+	select * from employee where eno=eid;
+	end$$
+
+	run:
+	call proarg(1002);
+
+
+	ex:2
+	DELIMITER $$
+	create PROCEDURE proarg2(in place varchar(29),in getage int)
+	BEGIN
+	select * from employee where city=place and age<=getage;
+	end$$
+
+	run:
+	call proarg2('madhurai',20)
+
+
+ex:3(3 parameter or argument with insert + select)
+===================================
+DELIMITER $$
+create PROCEDURE inspro(in eno1 int,in ename1 varchar(29), in city1 varchar(29))
+BEGIN
+insert into employee(eno,ename,city) values (eno1,ename1,city1);
+select * from employee;
+end$$
+
+run:
+
+call inspro(1209,'krishna','karur');
+
+8-12-2020
+=======
+ex: 4
+DELIMITER $$
+create PROCEDURE uppro(in eno1 int,in age1 int)
+BEGIN
+update employee set age=age1 where eno=eno1;
+select * from employee;
+end$$
+
+run:
+call uppro(1209,39);
+call uppro(1209);  // error --> must pass 2 args
+call uppro(1209,null); // correct
+
+note:
+	procedure  (in program name 'function')
+		only one time
+		called function
+	call ---> calling function
+
+ex: 5 (delete + select) 
+====
+	workout yourself
+
+
+=========================================
+
+auto increment values.
+===============
+
+	syntax:
+
+	create table tablename(var1 datatype constraint auto_increment, var2 datatype2,......)
+
+
+	ex:
+
+CREATE table bill(bno int PRIMARY key AUTO_INCREMENT,itemname varchar(20),price int)
+
+
+insert into bill (itemname,price)values('idly',10)
+
+select * from bill
+
+delete form bill where bno=3
+
+bill number starting from 10001 onwards(auto increment)
+=========================================
+
+syntax:
+	alter table tablename auto_increment = starting number
+
+ex:
+	alter table bill auto_increment = 10001
+	
+	insert into bill (itemname,price) values ('thosai',20)
+	
+	
+================================================
+how to find duplicate values ? (eno,.....)
+
+select eno,count(eno) as 'count_eno' from employee group by eno HAVING count(eno)>1
+
+
+select city,count(city) as 'count_city' from employee group by city HAVING count(eno)>1 order by count(city)
+
+================================================
+
+
+14-12-2020
+========
+	know the current working user:
+	======================
+	select user()
+	or
+	select current_user()
+
+	how to create new user with password?
+	============================
+syntax:1
+	create user if not EXISTS newusername@localhost identified by 'your password'
+syntax:2
+	create user  newusername@localhost identified by 'your password'
+ex:1
+	create user if not EXISTS krishna@localhost identified by 'krishna@123'
+ex:2
+	create user krishna@localhost identified by 'krishna@123'
+
+	how to view all  users ?
+	=================
+	
+	select user,password from mysql.user
+
+	how to set permission(privileges)?
+	========================	
+	(mysql - php)
+	GRANT all privileges on *.* to krishna@'localhost'
+
+	(mysql workbench)
+	GRANT all privileges on *.* to krishna@'localhost' identified by 'pass@123'	
+
+	note: all privileges: select,create,insert,update,delete..
+	*.*:  tablename databasename,view,stored procede
+
+	how to view permission to given user?
+	=============================
+	show GRANTS for krishna@localhost
+
+	how to set particular privileges to user?
+	=============================
+	grant create,select on *.* to gowthaman@localhost
+	
+	how to change password or set?
+	======================
+	set password for 'username'@'localhost'=password('yourpassword')
+ex:
+	set password for 'krishna'@'localhost'=password('123@krishna')
+
+15-12-2020
+=========
+	how to work mysql query in particular user?
+	===============================
+	step 1: mysql workbench open
+	step 2: manage connections
+		or
+	           database menu --> manage connections
+	step 3:
+		local instance mysql8.0 --> username: yourname	
+		test connection--> password type --> correct
+				or
+				access denied (invalid password)
+		close.
+	step 4:
+		home --> local instance mysql 5.5
+		username : krishna (instead of root)
+		password: ........... ok.
+	step 5:
+		work.
+		
+16-12-2020:
+=========
+	how to backup and restore database?
+
+	backup or export	
+	import or restore
+
+	main purpose:	
+		future use.
+
+	database backup(export):
+	===================
+	step 1: mysql home screen --> server administration(right side)
+			      --> import/export 
+			      --> password
+			      --> task and object browser-->data export
+			     -->select or tick schema(database)
+			     --> start export	
+	step 2: check your folder (backup file)
+
+	ex path:
+	C:\Users\Gowthaman\Documents\dumps\Dump20201216
+
+	step 3: drop the database in mysql(backup database)
+
+
+	database import(restore)
+	=================
+	step 4: 
+		data import/restore -->  path select correctly
+		schema --> tick -->start import.
+
+17-12-2020:
+=========
+   only read permission:
+=================	
+	syntax:
+
+	lock table tablename read/write;
+	
+	ex:
+	
+	lock table empdetails read;
+	lock table empdetails write;
+
+	
+table rename:
+==========
+	syntax:
+	alter table oldtablename rename to newtablename;
+	ex:
+	alter table empdetails rename to edetail;
+
+
+view all tables:
+===========
+
+	show tables; --> only shows currect db tables
+	show tables from database--> show tables from particular db;
+
+
+view table columname:
+===================
+	describe tablename; --> to view all columns
+	
+	show columns from tablename like '....%'; --> to view particular columns
+
+
+	
+22-12-20
+=======
+copy table:
+	create table newtablename select * from oldtablename;
+
+28-12-20(table copy --> use: hide essential data(column)
+			(only authential information)
+                                 --> source table will not affect when insert/dele/update/
+=======
+use emp;
+#delete from edetail where eno<20;
+(edit--> preperence-->sql queries --> remove tick(updates,delete)
+  ok --> restart mysql.)
+
+#select * from edetail;
+#create table krishna select * from edetail;
+#select * from krishna;
+
+#insert into krishna values(111,'senthil',25000);
+#select * from krishna;
+#select * from edetail;
+#create table senthil1 select eno,esal from edetail;
+insert into senthil1 values(222,5300);
+select * from senthil1;
+select * from edetail;
+
+
+another method: to copy table
+=====================
+		table copy --> use: hide essential data(column)
+			(only authential information)
+                                 --> source table will affect when insert/dele/update/
+		(source will change --> destination table affect)
+		(destination will change --> source table affect)
+view: 
+
+syntax:
+	create view viewname as select * from tablename;
+
+ex:
+use emp;
+#create view karurdata as select * from edetail;
+#select * from karurdata;
+
+#insert into edetail values(16,'raja',7000);
+select * from edetail;
+select * from karurdata;
+insert into karurdata values(17,'rani',9000);
+
+	
+method 2: using view:
+================
+create view dataview as select eno,esal from edetail;
+
+insert into dataview values(19,8700);
+
+select * from dataview;
+select * from edetail;		
+	
+
+programming concepts:
+=================
+
+variable declaration:
+	
+	set @variablename=value;
+
+print:
+	select @variablename;
+
+ex:1
+set @un='gowthaman';
+set @sal=20000;
+select @un,@sal;
+
+ex:2
+set @sal=10000;
+set @number=100;
+set @name1='ramki';
+
+insert into edetail values(@number,@name1,@sal);
+select * from edetail where esal=@sal;
+
+ex: 3(using procedure with variable)
+
+step 1:
+
+delimiter $$
+create procedure insertpro(n int,na varchar(33),s int)
+begin
+insert into edetail values(n,na,s);
+select * from edetail;
+end$$
+
+step 2:
+
+set @sal=15000;
+set @number=101;
+set @name1='raman';
+
+call insertpro(@number,@name1,@sal);
+
+
+29-12-2020
+=========
+if statement in mysql
+syntax:
+	if(condition,true part,false part)
+
+ex:
+set @age=19;
+select if(@age=18,'eligible','not eligible')
+
+set @desig='manager';
+select eid,ename,if(designation='manager','good','normal') as 'result'  from einfo;
+
+ex: advance(nested if)
+
+
+
+select eno,ename,esal,if(esal<=9999,'below salary',(if(esal<=19999,'normal salary','high salary'))) as 'salary result' from edetail
+
+
+aggregate function:
+==============
+count
+sum
+average
+min
+max
+limit
+group_concat
+
+ex:
+
+select did,dname,count(dname) from driver group by did;
+
+select sum(esal) from edetail;
+
+select max(esal) from edetail;
+select min(esal) from edetail;
+select average(esal) from edetail;
+
+select * from edetail limit 3;  // to display top 3 rows
+select * from edetail order by eno limit 2; // ascending order top 3 rows
+select * from edetail order by eno desc limit 2; // descending order top 2 rows
+
+
+select did,dname,count(did) as 'no. of vechicle driving',group_concat(runvec) as 'running vechicle' from driver group by did;
+
+31-12-2020:
+=========
+
+#create table datework(sno int,name varchar(20),dob datetime);
+#insert into datework values(1003,'krishna','2001-11-7 14:12:34');
+#select * from datework;
+#select sno,name, date_format(dob,'%d/%m/%y') as 'date of birth' from datework;
+#select sno,name, date_format(dob,'%d/%b/%Y') as 'date of birth' from datework;
+#select sno,name, date_format(dob,'%e/%b/%Y') as 'date of birth' from datework;
+#select sno,name,dob, date_format(dob,'%M') as 'date of birth' from datework;
+#select sno,name,dob, date_format(dob,'%c') as 'date of birth' from datework;
+select sno,name,dob, date_format(dob,'%D %M , %Y') as 'date of birth' from datework;
+
+ans:
+	1001	raja	2000-12-15 00:00:00	15th December , 2000
+	1002	kumar	2001-11-17 10:12:34	17th November , 2001
+	1003	krishna	2001-11-07 14:12:34	7th November , 2001
+	1004	bharathi	2001-11-01 11:12:34	1st November , 2001
+	1005	ramesh	2001-11-02 13:12:34	2nd November , 2001
+
+time format function:
+===============
+
+select sno,name,dob, date_format(dob,'%H') as 'time manipulate' from datework;
+
+%H --> 24 hours format
+%h  --> 12 hours format
+%j  --> day of the year
+
+select sno,name,dob, date_format(dob,'%h:%i:%s %p') as 'time manipulate' from datework;
+
+ans:
+	1001	raja	2000-12-15 00:00:00	12:00:00 AM
+	1002	kumar	2001-11-17 10:12:34	10:12:34 AM
+	1003	krishna	2001-11-07 14:12:34	02:12:34 PM
+	1004	bharathi	2001-11-01 11:12:34	11:12:34 AM
+	1005	ramesh	2001-11-02 13:12:34	01:12:34 PM
+
